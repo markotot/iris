@@ -31,7 +31,7 @@ From: nvidia/cuda:12.4.1-cudnn-devel-ubuntu22.04
     . /opt/conda/etc/profile.d/conda.sh
     conda create -n iris python=3.9
     conda activate iris
-    pip install -r ./LightZero/requirements_full.txt
+    pip install -r ./iris/requirements_full.txt
 
 %environment
     . /opt/conda/etc/profile.d/conda.sh
