@@ -15,8 +15,8 @@ set RUN_NAME [lindex $argv 9];
 set ENV_NAME [lindex $argv 10];
 
 
-set PULL_JOB_PARAMS "-N ${RUN_NAME}-Pull -v JOB_TYPE=\"pull_git\",RUN_NAME=$RUN_NAME,GIT_BRANCH=$GIT_BRANCH $PROJECT_NAME/scripts/submit_short_gpu_experiment_job.sh"
-set EXPERIMENT_JOB_PARAMS "-hold_jid ${RUN_NAME}-Pull -N ${RUN_NAME}-Experiment -v JOB_TYPE=\"run_experiment\",RUN_NAME=$RUN_NAME,START_SEED=$START_SEED,END_SEED=$END_SEED,ENV_NAME=$ENV_NAME,GIT_BRANCH=$GIT_BRANCH,WANDB_API_KEY=$WANDB_API_KEY $PROJECT_NAME/scripts/submit_short_gpu_experiment_job.sh"
+set PULL_JOB_PARAMS "-N ${RUN_NAME}-Pull -v JOB_TYPE=\"pull_git\",RUN_NAME=$RUN_NAME,GIT_BRANCH=$GIT_BRANCH $PROJECT_NAME/scripts/submit_experiment_job.sh"
+set EXPERIMENT_JOB_PARAMS "-hold_jid ${RUN_NAME}-Pull -N ${RUN_NAME}-Experiment -v JOB_TYPE=\"run_experiment\",RUN_NAME=$RUN_NAME,START_SEED=$START_SEED,END_SEED=$END_SEED,ENV_NAME=$ENV_NAME,GIT_BRANCH=$GIT_BRANCH,WANDB_API_KEY=$WANDB_API_KEY $PROJECT_NAME/scripts/submit_experiment_job.sh"
 
 spawn ssh -i $APOC_PRIVATE_KEY $APOC_USERNAME@login.hpc.qmul.ac.uk \
  "
