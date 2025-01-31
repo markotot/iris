@@ -1,5 +1,5 @@
 #!/bin/bash
-#$ -pe smp 12
+#$ -pe smp 8
 #$ -l h_vmem=6G
 #$ -l gpu=1
 #$ -l h_rt=1:0:0
