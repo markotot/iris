@@ -1,20 +1,10 @@
-# Description: Run the evaluation of the Iris model on the Atari environment
+# Description: Run the training of the iris on the Atari environment
 
-cd zoo/atari/entry/
-START_SEED=$1
-END_SEED=$2
-ENV_NAME=$3
-WANDB_API_KEY=$4
+ENV_NAME=$1
+WANDB_API_KEY=$2
 wandb login $WANDB_API_KEY
 
-#export PYTHONPATH="/home/marko/pythonProject/LightZero:$PYTHONPATH"
-
-echo "Evaluating Iris model on environment $ENV_NAME"
-
-for ((i=START_SEED; i<END_SEED; i++)); do
-    echo "Evaluating seed $i on environment $ENV_NAME"
-    python3 -m atari_eval_iris_model $i $ENV_NAME &
-done
-
+echo "Training iris model on environment $ENV_NAME"
+python src/main.py env.train.id=$ENV_NAME common.device=cuda:0 wandb.mode=online
 wait
-echo "All seeds have been evaluated"
+echo "All seeds have been trained"
