@@ -3,6 +3,7 @@
 #$ -l h_vmem=11G
 #$ -l gpu=1
 #$ -l h_rt=1:0:0
+#$ -l rocky
 #$ -cwd
 #$ -j y
 #$ -o job_results
