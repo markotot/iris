@@ -29,10 +29,20 @@ class Episode:
             self.ends = self.ends[:idx_end]
             self.mask_padding = self.mask_padding[:idx_end]
 
+            # if (self.mask_padding == False).any():
+            #     assert False
+
     def __len__(self) -> int:
         return self.observations.size(0)
 
     def merge(self, other: Episode) -> Episode:
+
+        # if (self.mask_padding == False).any():
+        #     assert False
+        #
+        # if (other.mask_padding == False).any():
+        #     assert False
+
         return Episode(
             torch.cat((self.observations, other.observations), dim=0),
             torch.cat((self.actions, other.actions), dim=0),
@@ -66,6 +76,9 @@ class Episode:
         segment.rewards = pad(segment.rewards)
         segment.ends = pad(segment.ends)
         segment.mask_padding = torch.cat((torch.zeros(padding_length_left, dtype=torch.bool), segment.mask_padding, torch.zeros(padding_length_right, dtype=torch.bool)), dim=0)
+
+        # if (segment.mask_padding == False).any():
+        #     assert False
 
         return segment
 

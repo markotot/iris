@@ -123,3 +123,29 @@ class Collector:
                 self.episode_ids[i] = self.dataset.add_episode(episode)
             else:
                 self.dataset.update_episode(self.episode_ids[i], episode)
+    #
+    # def make_segment_diamond(episode: Episode, segment_id: SegmentId, should_pad: bool = True) -> Segment:
+    #     assert segment_id.start < len(episode) and segment_id.stop > 0 and segment_id.start < segment_id.stop
+    #     pad_len_right = max(0, segment_id.stop - len(episode))
+    #     pad_len_left = max(0, -segment_id.start)
+    #     assert pad_len_right == pad_len_left == 0 or should_pad
+    #
+    #     def pad(x):
+    #         right = F.pad(x, [0 for _ in range(2 * x.ndim - 1)] + [pad_len_right]) if pad_len_right > 0 else x
+    #         return F.pad(right, [0 for _ in range(2 * x.ndim - 2)] + [pad_len_left, 0]) if pad_len_left > 0 else right
+    #
+    #     start = max(0, segment_id.start)
+    #     stop = min(len(episode), segment_id.stop)
+    #     mask_padding = torch.cat(
+    #         (torch.zeros(pad_len_left), torch.ones(stop - start), torch.zeros(pad_len_right))).bool()
+    #
+    #     return Segment(
+    #         pad(episode.obs[start:stop]),
+    #         pad(episode.act[start:stop]),
+    #         pad(episode.rew[start:stop]),
+    #         pad(episode.end[start:stop]),
+    #         pad(episode.trunc[start:stop]),
+    #         mask_padding,
+    #         info=episode.info,
+    #         id=SegmentId(segment_id.episode_id, start, stop),
+    #     )

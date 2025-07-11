@@ -59,7 +59,7 @@ apocrita_qstat:
 
 .SILENT: local_run
 local_run:
-	sudo bash ./scripts/run_iris_local.sh ${NUM_SEEDS} ${FULL_ENV_NAME} ${WANDB_API_KEY}
+	sudo bash ./scripts/run_iris_local.sh ${FULL_ENV_NAME}
 
 .SILENT: test
 test:

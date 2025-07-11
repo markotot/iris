@@ -3,7 +3,7 @@ from pathlib import Path
 
 import hydra
 from hydra.utils import instantiate
-from omegaconf import DictConfig
+from omegaconf import DictConfig, open_dict
 import torch
 
 from agent import Agent
@@ -16,6 +16,17 @@ from models.world_model import WorldModel
 @hydra.main(config_path="../config", config_name="trainer")
 def main(cfg: DictConfig):
     device = torch.device(cfg.common.device)
+
+
+    # Added for debugging
+    with open_dict(cfg):
+        cfg.mode = 'agent_in_world_model'
+        cfg.fps = 15
+        cfg.header = 0
+        cfg.reconstruction = 0
+        cfg.save_mode = 0
+
+
     assert cfg.mode in ('episode_replay', 'agent_in_env', 'agent_in_world_model', 'play_in_world_model')
 
     env_fn = partial(instantiate, config=cfg.env.test)
@@ -37,7 +48,7 @@ def main(cfg: DictConfig):
         world_model = WorldModel(obs_vocab_size=tokenizer.vocab_size, act_vocab_size=test_env.num_actions, config=instantiate(cfg.world_model))
         actor_critic = ActorCritic(**cfg.actor_critic, act_vocab_size=test_env.num_actions)
         agent = Agent(tokenizer, world_model, actor_critic).to(device)
-        agent.load(Path('checkpoints/last.pt'), device)        
+        agent.load(Path('../../../../checkpoints/last.pt'), device)
 
         if cfg.mode == 'play_in_world_model':
             env = WorldModelEnv(tokenizer=agent.tokenizer, world_model=agent.world_model, device=device, env=env_fn())

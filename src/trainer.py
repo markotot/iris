@@ -48,15 +48,15 @@ class Trainer:
         if not cfg.common.resume:
             config_dir = Path('config')
             config_path = config_dir / 'trainer.yaml'
-            config_dir.mkdir(exist_ok=False, parents=False)
-            shutil.copy('.hydra/config.yaml', config_path)
+            config_dir.mkdir(exist_ok=True, parents=False)
+            #shutil.copy('.hydra/config.yaml', config_path)
             wandb.save(str(config_path))
-            shutil.copytree(src=(Path(hydra.utils.get_original_cwd()) / "src"), dst="./src")
-            shutil.copytree(src=(Path(hydra.utils.get_original_cwd()) / "scripts"), dst="./scripts")
-            self.ckpt_dir.mkdir(exist_ok=False, parents=False)
-            self.media_dir.mkdir(exist_ok=False, parents=False)
-            self.episode_dir.mkdir(exist_ok=False, parents=False)
-            self.reconstructions_dir.mkdir(exist_ok=False, parents=False)
+            #shutil.copytree(src=(Path(hydra.utils.get_original_cwd()) / "src"), dst="./src")
+            #shutil.copytree(src=(Path(hydra.utils.get_original_cwd()) / "scripts"), dst="./scripts")
+            self.ckpt_dir.mkdir(exist_ok=True, parents=False)
+            self.media_dir.mkdir(exist_ok=True, parents=False)
+            self.episode_dir.mkdir(exist_ok=True, parents=False)
+            self.reconstructions_dir.mkdir(exist_ok=True, parents=False)
 
         episode_manager_train = EpisodeDirManager(self.episode_dir / 'train', max_num_episodes=cfg.collection.train.num_episodes_to_save)
         episode_manager_test = EpisodeDirManager(self.episode_dir / 'test', max_num_episodes=cfg.collection.test.num_episodes_to_save)

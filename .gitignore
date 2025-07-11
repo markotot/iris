@@ -3,6 +3,9 @@ wandb
 .vscode
 outputs
 results/figures
+checkpoints/*
+src/checkpoints/*
+src/media/*
 slurm*
 experiments
 
